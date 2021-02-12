@@ -8,7 +8,16 @@ var userSchema = new Schema({
     idcard: String,
     emailaddress: String,
     password: String,
-    avatar: String
+    avatar: String,
+    mistakeList: [{
+        subject: String,
+        category: String,
+        questionDescription: String,
+        questionItems: [{ 
+            question: String, 
+            rightAnswer: String 
+        }]
+    }]
 })
 
 const User = mongoose.model("User", userSchema)

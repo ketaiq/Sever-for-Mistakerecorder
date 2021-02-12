@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 var app = express()
 app.use(bodyParser.json({ extended: true }))
-var Mistake = require('./mistakeSchema')
 var User = require('./userSchema')
 
 mongoose.connect("mongodb://localhost/DatabaseforMistakerecorder")
@@ -30,7 +29,8 @@ app.post('/register', (req, res) => {
         idcard: req.body.idcard,
         emailaddress: req.body.emailaddress,
         password: req.body.password,
-        avatar: req.body.avatar
+        avatar: req.body.avatar,
+        mistakeList: req.body.mistakeList
     })
     User.find({}, (err, result) => {
         if (err) {
@@ -58,54 +58,106 @@ app.post('/register', (req, res) => {
     })
 })
 
-// 创建一个Mistake
-app.post('/create', (req, res) => {
-    mistake = new Mistake ({
-        subject: req.body.subject,
-        category: req.body.category,
-        questionDescription: req.body.questionDescription,
-        questionItems: req.body.questionItems
-    })
-    mistake.save().then(() => {
-        if (mistake.isNew) {
-            console.log("数据保存失败")
+// 删除User
+app.post('/deleteUser', (req, res) => {
+    User.findOneAndRemove({
+        'username': req.body.username
+    }, (err) => {
+        if (err) {
+            console.log("删除用户" + req.body.username + "失败：" + error)
         } else {
-            console.log("数据保存成功")
-            res.send("数据保存成功")
+            console.log("删除用户" + req.body.username + "成功！")
         }
     })
 })
 
-// 删除一个Mistake
-app.post('/delete', (req, res) => {
-    Mistake.findOneAndRemove({
-        _id: new mongoose.Types.ObjectId(req.body._id)
-    }, (err) => {
-        if (err) {
-            console.log("删除失败：" + error)
-        }
-    })
-    res.send("删除成功！")
-})
-// 更新一个Mistake
-app.post('/update', (req, res) => {
-    Mistake.findOneAndUpdate({
-        _id: new mongoose.Types.ObjectId(req.body._id)
+// 更新User的nickname
+app.post('/updateNickname', (req, res) => {
+    User.findOneAndUpdate({
+        'username': req.body.username
     }, {
-        subject: req.body.subject,
-        category: req.body.category,
-        questionDescription: req.body.questionDescription,
-        questionItems: req.body.questionItems
+        nickname: req.body.nickname
     }, (err) => {
         if (err) {
-            console.log("更新失败：" + err)
+            console.log("更新用户"+ req.body.username + "的nickname失败：" + err)
+        } else {
+            console.log("更新用户"+ req.body.username + "的nickname成功！")
         }
     })
-    res.send("更新成功！")
 })
-// 提取所有Mistake
+
+// 更新User的password
+app.post('/updatePassword', (req, res) => {
+    User.findOneAndUpdate({
+        'username': req.body.username
+    }, {
+        password: req.body.password
+    }, (err) => {
+        if (err) {
+            console.log("更新用户"+ req.body.username + "的password失败：" + err)
+        } else {
+            console.log("更新用户"+ req.body.username + "的password成功！")
+        }
+    })
+})
+
+// 更新User的avatar
+app.post('/updateAvatar', (req, res) => {
+    User.findOneAndUpdate({
+        'username': req.body.username
+    }, {
+        avatar: req.body.avatar
+    }, (err) => {
+        if (err) {
+            console.log("更新用户"+ req.body.username + "的avatar失败：" + err)
+        } else {
+            console.log("更新用户"+ req.body.username + "的avatar成功！")
+        }
+    })
+})
+
+// 更新User的mistakeList
+app.post('/updateMistakeList', (req, res) => {
+    User.findOneAndUpdate({
+        'username': req.body.username
+    }, {
+        mistakeList: req.body.mistakeList
+    }, (err) => {
+        if (err) {
+            console.log("更新用户"+ req.body.username + "的mistakeList失败：" + err)
+        } else {
+            console.log("更新用户"+ req.body.username + "的mistakeList成功！")
+        }
+    })
+})
+
+// 登录
+app.post('/login', (req, res) => {
+    User.findOne({
+        'username': req.body.username
+    }, (err, result) => {
+        if (err) {
+            console.log("用户"+ req.body.username + "登录失败：" + err)
+        } else {
+            if (result != null) {
+                if (result.password == req.body.password) {
+                    res.send(result)
+                    console.log("用户"+ req.body.username + "登录成功！")
+                } else {
+                    res.send("0")
+                    console.log("用户"+ req.body.username + "登录密码错误！")
+                }
+            } else {
+                res.send("-1")
+                console.log("用户"+ req.body.username + "不存在！")
+            }
+        }
+    })
+})
+
+// 提取所有User
 app.get('/fetch', (req, res) => {
-    Mistake.find({}).then((DBitems) => {
+    User.find({}).then((DBitems) => {
         res.send(DBitems)
     })
 })
