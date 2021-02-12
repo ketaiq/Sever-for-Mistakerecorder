@@ -15,7 +15,7 @@ mongoose.connection
     console.log("连接" + error + "失败")
 })
 
-var server = app.listen(8080, '127.0.0.1', () => {
+var server = app.listen(8080, '0.0.0.0', () => {
     var host = server.address().address  
     var port = server.address().port  
     console.log("服务器已启动运行！http://%s:%s", host, port)
