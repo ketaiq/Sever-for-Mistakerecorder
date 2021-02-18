@@ -84,17 +84,18 @@ app.post('/login', (req, res) => {
 
 // 忘记密码
 app.post('/forgetPassword', (req, res) => {
-    User.findOne({
+    User.findOneAndUpdate({
         'username': req.body.username,
         'realname': req.body.realname,
         'idcard': req.body.idcard,
         'emailaddress': req.body.emailaddress
+    }, {
+        password: req.body.password
     }, (err, result) => {
         if (err) {
             console.log("用户" + req.body.username + "找回密码失败：" + err)
         } else {
             if (result != null) {
-                result.password = req.body.password // 修改新密码
                 res.send(result)
                 console.log("用户" + req.body.username + "找回密码成功！")
             } else {
