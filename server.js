@@ -58,6 +58,53 @@ app.post('/register', (req, res) => {
     })
 })
 
+// 登录
+app.post('/login', (req, res) => {
+    User.findOne({
+        'username': req.body.username
+    }, (err, result) => {
+        if (err) {
+            console.log("用户" + req.body.username + "登录失败：" + err)
+        } else {
+            if (result != null) {
+                if (result.password == req.body.password) {
+                    res.send(result)
+                    console.log("用户" + req.body.username + "登录成功！")
+                } else {
+                    res.send("0")
+                    console.log("用户" + req.body.username + "登录密码错误！")
+                }
+            } else {
+                res.send("-1")
+                console.log("用户" + req.body.username + "不存在！")
+            }
+        }
+    })
+})
+
+// 忘记密码
+app.post('/forgetPassword', (req, res) => {
+    User.findOne({
+        'username': req.body.username,
+        'realname': req.body.realname,
+        'idcard': req.body.idcard,
+        'emailaddress': req.body.emailaddress
+    }, (err, result) => {
+        if (err) {
+            console.log("用户" + req.body.username + "找回密码失败：" + err)
+        } else {
+            if (result != null) {
+                result.password = req.body.password // 修改新密码
+                res.send(result)
+                console.log("用户" + req.body.username + "找回密码成功！")
+            } else {
+                res.send("-1")
+                console.log("用户" + req.body.username + "提供的信息无效")
+            }
+        }
+    })
+})
+
 // 删除User
 app.post('/deleteUser', (req, res) => {
     User.findOneAndRemove({
@@ -127,30 +174,6 @@ app.post('/updateMistakeList', (req, res) => {
             console.log("更新用户"+ req.body.username + "的mistakeList失败：" + err)
         } else {
             console.log("更新用户"+ req.body.username + "的mistakeList成功！")
-        }
-    })
-})
-
-// 登录
-app.post('/login', (req, res) => {
-    User.findOne({
-        'username': req.body.username
-    }, (err, result) => {
-        if (err) {
-            console.log("用户"+ req.body.username + "登录失败：" + err)
-        } else {
-            if (result != null) {
-                if (result.password == req.body.password) {
-                    res.send(result)
-                    console.log("用户"+ req.body.username + "登录成功！")
-                } else {
-                    res.send("0")
-                    console.log("用户"+ req.body.username + "登录密码错误！")
-                }
-            } else {
-                res.send("-1")
-                console.log("用户"+ req.body.username + "不存在！")
-            }
         }
     })
 })
