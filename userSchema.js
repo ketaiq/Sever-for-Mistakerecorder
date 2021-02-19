@@ -16,7 +16,13 @@ var userSchema = new Schema({
         questionItems: [{ 
             question: String, 
             rightAnswer: String 
-        }]
+        }],
+        createdDate: String,
+        revisedRecords: [{
+            revisedDate: String,
+            revisedPerformance: String
+        }],
+        nextRevisionDate: String
     }]
 })
 
