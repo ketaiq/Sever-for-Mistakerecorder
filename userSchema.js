@@ -22,7 +22,8 @@ var userSchema = new Schema({
             revisedDate: String,
             revisedPerformance: String
         }],
-        nextRevisionDate: String
+        nextRevisionDate: String,
+        isRevising: Boolean
     }]
 })
 
