@@ -164,6 +164,21 @@ app.post('/updateAvatar', (req, res) => {
     })
 })
 
+// 更新User的emailaddress
+app.post('/updateEmailaddress', (req, res) => {
+    User.findOneAndUpdate({
+        'username': req.body.username
+    }, {
+        emailaddress: req.body.emailaddress
+    }, (err) => {
+        if (err) {
+            console.log("更新用户"+ req.body.username + "的emailaddress失败：" + err)
+        } else {
+            console.log("更新用户"+ req.body.username + "的emailaddress成功！")
+        }
+    })
+})
+
 // 更新User的mistakeList
 app.post('/updateMistakeList', (req, res) => {
     User.findOneAndUpdate({
