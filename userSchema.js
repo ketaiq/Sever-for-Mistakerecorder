@@ -8,7 +8,7 @@ var userSchema = new Schema({
     idcard: String,
     emailaddress: String,
     password: String,
-    avatar: String,
+    avatar: Buffer,
     mistakeList: [{
         subject: String,
         category: String,
