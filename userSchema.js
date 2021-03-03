@@ -23,7 +23,7 @@ var userSchema = new Schema({
             revisedPerformance: String
         }],
         nextRevisionDate: String,
-        isRevising: Boolean
+        revisionStatus: String
     }]
 })
 
