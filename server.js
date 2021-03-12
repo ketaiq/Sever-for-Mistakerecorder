@@ -197,10 +197,7 @@ app.post('/updateMistakeList', (req, res) => {
 
 // 提取所有User
 app.get('/fetch', (req, res) => {
-    User.find({}).then((DBitems) => {
-        for (item in DBitems) {
-            item.avatar = "[...]"
-        }
+    User.find({}, 'username nickname realname idcard emailaddress password mistakeList').then((DBitems) => {
         res.send(DBitems)
     })
 })
