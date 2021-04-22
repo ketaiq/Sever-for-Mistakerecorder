@@ -68,13 +68,19 @@ app.post('/login', (req, res) => {
             console.log("用户" + req.body.username + "登录失败：" + err)
         } else {
             if (result != null) {
-                if (result.password == req.body.password) {
-                    res.send(result)
-                    console.log("用户" + req.body.username + "登录成功！")
-                } else {
-                    res.send("0")
-                    console.log("用户" + req.body.username + "登录密码错误！")
-                }
+                result.comparePassword(req.body.password, function(err, isMatch) {
+                    if (err) {
+                        throw err
+                    }
+                    if (isMatch) {
+                        res.send(result)
+                        console.log("用户" + req.body.username + "登录成功！")
+                    } else {
+                        res.send("0")
+                        console.log("用户" + req.body.username + "登录密码错误！")
+                    }
+                })
+                
             } else {
                 res.send("-1")
                 console.log("用户" + req.body.username + "不存在！")
