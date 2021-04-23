@@ -17,7 +17,8 @@ var userSchema = new Schema({
         questionDescription: String,
         questionItems: [{ 
             question: String, 
-            rightAnswer: String 
+            rightAnswer: String,
+            answer: String
         }],
         createdDate: String,
         revisedRecords: [{
