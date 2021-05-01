@@ -47,6 +47,26 @@ userSchema.pre('save', function(next) {
     })
 })
 
+userSchema.pre('update', function(next) {
+    const password = this.getUpdate().$set.password
+    if (!password) {
+        return next()
+    }
+    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+        if (err) {
+            return next(err)
+        }
+
+        bcrypt.hash(password, salt, function(err, hash) {
+            if (err) {
+                return next(err)
+            }
+            this.getUpdate().$set.password = hash
+            next()
+        })
+    })
+})
+
 userSchema.methods.comparePassword = function(enteredPassword, cb) {
     bcrypt.compare(enteredPassword, this.password, function(err, isMatch) {
         if (err) {
