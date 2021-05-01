@@ -91,20 +91,21 @@ app.post('/login', (req, res) => {
 
 // 忘记密码
 app.post('/forgetPassword', (req, res) => {
-    User.findOneAndUpdate({
+    User.findOne({
         'username': req.body.username,
         'realname': req.body.realname,
         'idcard': req.body.idcard,
         'emailaddress': req.body.emailaddress
-    }, {
-        password: req.body.password
     }, (err, result) => {
         if (err) {
             console.log("用户" + req.body.username + "找回密码失败：" + err)
         } else {
             if (result != null) {
-                res.send(result)
-                console.log("用户" + req.body.username + "找回密码成功！")
+                result.password = req.body.password
+                result.save().then(() => {
+                    res.send(result)
+                    console.log("用户" + req.body.username + "找回密码成功！")
+                })
             } else {
                 res.send("-1")
                 console.log("用户" + req.body.username + "提供的信息无效")
