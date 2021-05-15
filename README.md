@@ -1,8 +1,8 @@
 # Sever-for-Mistakerecorder
-![GitHub](https://img.shields.io/badge/part-client-orange)
+![GitHub](https://img.shields.io/badge/part-server-orange)
 ![GitHub](https://img.shields.io/github/license/casdm/Sever-for-Mistakerecorder)
 ![GitHub](https://img.shields.io/badge/version-v1.0-blue)
-![GitHub](https://img.shields.io/badge/platform--lightgrey)
+![GitHub](https://img.shields.io/badge/platform-linux-lightgrey)
 
 2021年南京农业大学本科生毕业设计：错题拍拍手机APP服务器端
 
@@ -19,3 +19,6 @@
 This paper designs a mobile application of organizing mistakes by photographing based on Chinese OCR technology for after-school tutoring needs of pupils for primary Chinese. The system uses Alibaba Cloud server as a MongoDB database server to store mistake data, and the client is developed based on the iOS operating system. The mistake recorder system pays attention to the needs of pupils. The main functional modules are: user management, mistake management and data management. The key part mistake management includes three main steps, which are importing, exporting and reviewing of mistakes. In the import module, this application specifically designs seven built-in templates for importing mistakes, such as pinyin, idiom meanings, synonyms, antonyms, etc., which can effectively help users organize mistakes in the shortest possible time. The export module includes functions of automatic generating papers and exporting the printable PDF test papers, so that users can easily export and redo the test paper. The review module provides review reminder function based on the Ebbinghaus Forgetting Curve. After the user completes review, the user can use the automatic evaluating function to correct the answers, and record the results of each review. The main feature of this software is that when importing and reviewing mistakes, the application provides a complete Chinese OCR tool. The OCR model is provided by Baidu AI's public interface. Its recognition accuracy and speed are high, so it can effectively help users reduce the time of manual input. The PDF test paper exported by this application is used together with the one-click recognition function of the review part of the application, which can simplify the traditional process of revising mistakes as much as possible. The application can also record review time and result, so it is a unique tool application to organize mistakes in the current application market.
 
 **KEY WORDS**：Chinese OCR；Ebbinghaus Forgetting Curve；Mistake Recognition；Primary Chinese
+
+## 其他
+客户端部分见[Client-for-Mistakerecorder](https://github.com/casdm/Client-for-Mistakerecorder "错题拍拍客户端")。
