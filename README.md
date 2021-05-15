@@ -1,5 +1,6 @@
 # Sever-for-Mistakerecorder
 ![GitHub](https://img.shields.io/badge/part-server-orange)
+![GitHub](https://img.shields.io/github/license/casdm/Sever-for-Mistakerecorder)
 ![GitHub](https://img.shields.io/badge/version-v1.0-blue)
 ![GitHub](https://img.shields.io/badge/platform-linux-lightgrey)
 
